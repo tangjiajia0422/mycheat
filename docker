@@ -1,0 +1,155 @@
+# docker build image
+docker build -t vieux/apache:2.0 .
+
+# run docker container
+docker run -d -p 8080:8080 -p 50000:50000 \
+       --name myjenkins
+       --restart=always \
+       -v ${jenkins_location}/jenkins_home:/var/jenkins_home \
+       jenkins
+
+# Link container
+docker run --name CONTAINER
+docker run -d --link CONTAINER:ALIAS --name LINKED user/wordpress
+docker rm --link
+
+# see image
+docker image
+
+# see running container
+docker ps
+
+# see all container
+docker ps -a
+
+# stop restart start container
+docker start ${container_id}
+docker restart ${container_id}
+docker stop ${container_id}
+
+# rm image
+docker rmi ${image_name}
+
+# rm container
+docker rm ${container_id}
+
+# download image
+docker pull jenkins
+
+# save image
+docker save jenkins > jenkins.tar
+docker save -o fedora-all.tar fedora
+
+# store image
+docker load < jenkins.tar
+docker load --input fedora.tar
+
+# docker cp files
+docker cp foo.txt mycontainer:/foo.txt
+docker cp mycontainer:/foo.txt foo.txt
+
+# install docker
+curl -fsSL https://get.docker.com/ | sh
+
+# 4 ways to goto docker container's shell
+sudo docker exec -it 665b4a1e17b6 /bin/bash
+
+# docker run command as a user
+docker exec -ti --user www-data e25659a8fdfc ./occ
+
+# add docker group
+sudo usermod -aG docker qinshulei
+
+# install registry
+docker run -d -p 5000:5000 --restart=always --name registry \
+  -v `pwd`/data:/var/lib/registry \
+  registry:2
+
+# Registry Command
+# Get any image from the hub and tag it to point to your registry:
+docker pull ubuntu && docker tag ubuntu localhost:5000/ubuntu
+
+# ... then push it to your registry:
+docker push localhost:5000/ubuntu
+
+# ... then pull it back from your registry:
+docker pull localhost:5000/ubuntu
+
+# To stop your registry, you would:
+docker stop registry && docker rm -v registry
+
+# show docker infomation , for example : root dir, cpu info
+docker	info
+
+# docker query container info
+docker inspect --format '{{.State.Pid}}' CONTAINER_ID
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' CONTAINER_ID
+
+# search image
+docker search jenkins
+
+# run mysql
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d -v /data:/var/lib/mysql mysql
+
+# look docker file
+docker exec mysql cat /etc/mysql/my.cnf
+
+# run docker-compose app
+docker-compose up -d
+
+# run bash
+sudo docker run -a stdin -a stdout -i -t ubuntu /bin/bash
+
+# for our docker registry, error like : docker tls: oversized record received with length
+vi /etc/default/docker
+DOCKER_OPTS="--insecure-registry 192.168.65.56:5000 "
+
+# docker update opengrok
+docker exec nostalgic_dubinsky /opengrok-0.12.1.5/bin/OpenGrok index /src
+
+# install git for runing container
+docker exec nostalgic_dubinsky sh -c "apt-get update -y && apt-get install --no-install-recommends -y -q git"
+
+# install docker by daocloud
+curl -sSL https://get.daocloud.io/docker | sh
+
+# use daocloud mirror
+curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://f7e4ccc5.m.daocloud.io
+
+# restart docker
+sudo systemctl restart docker.service
+
+# use daemon.json
+root@ubuntu:/etc/docker# cat daemon.json 
+{
+ "registry-mirrors": ["http://f7e4ccc5.m.daocloud.io"],
+ "insecure-registries":["192.168.67.56:5000"],
+ "graph": "/home/docker"
+}
+
+# the graph change the docker storage.
+
+# Set storage driver options per container
+$ docker run -it --storage-opt size=120G fedora /bin/bash
+
+# as a root run bash
+docker exec --user root -it 1fc2127b04cd /bin/bash
+
+# check docker status
+$ docker inspect -f {{.State.Running}} helpdesk-NJ
+true
+
+$ docker inspect -f {{.State.Running}} practical_stonebraker
+false
+
+# run one time test on ubuntu
+$ sudo docker run --rm -a stdin -a stdout -i -t njdocker1.nj.thundersoft.com/public/ubuntu:14.04ts /bin/bash
+
+$ sudo docker run --rm -a stdin -a stdout -it -v /:/rootdir njdocker1.nj.thundersoft.com/public/ubuntu:14.04ts /bin/bash
+
+# for entrypoint
+docker run -a stdin -a stdout -it --entrypoint=/bin/bash vmware/harbor-db-migrator
+
+## docker remove useless storage
+$ docker system df #will show used space, similar to the unix tool df
+$ docker system prune # will remove all unused data.

@@ -1,0 +1,7 @@
+#install command line for ubuntu16.04
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_16.04/ /' > /etc/apt/sources.list.d/owncloud-client.list"
+sudo apt-get update
+sudo apt-get install owncloud-client
+
+#use upload from $HOME/ownCloud to http://file.ts.com/remote.php/webdav/Release
+owncloudcmd -s -u ${username} -p ${passwd} $HOME/ownCloud http://file.ts.com/remote.php/webdav/Release

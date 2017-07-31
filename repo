@@ -1,0 +1,23 @@
+# push all repo create master branch
+repo forall -c 'pwd;git checkout -f remotes/origin/20150703 -b master;git push -f origin master:refs/heads/master' 2>&1 | tee push.log
+
+# repo init
+repo init -u ssh://username@192.168.1.1:29418/manifest -b master -m manifest-full.xml --repo-url=ssh://username@192.168.1.1:29418/repo
+
+# repo output static manifest.
+repo manifest -r -o static_manifest.xml
+
+# repo for all in line
+repo forall -p -c 'echo " REPO_PROJECT:${REPO_PROJECT} \n REPO_PATH:${REPO_PATH} \n REPO_REMOTE:${REPO_REMOTE} \n REPO_LREV:${REPO_LREV} \n REPO_RREV:${REPO_RREV}"'
+
+
+# query all branch by git
+#!/bin/bash
+while read LINE;do
+    REPO_PROJECT=${LINE##* }
+    REPO_PATH=${LINE%% *}
+    cd ${REPO_PATH}.git
+    echo "REPO_PROJECT: ${REPO_PROJECT}"
+    git ls-remote origin | sed '/^.*tags.*/d'
+    cd -
+done < repo_list.txt

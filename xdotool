@@ -1,0 +1,59 @@
+while true; do date +"%Y%m%d_%H%M%S";xdotool getmouselocation; sleep 0.5; clear; done
+
+# select window
+xdotool selectwindow
+
+# set the size
+xdotool windowsize 90177621 1024 768
+
+# search chrome
+xdotool search unstable
+
+# active chrome
+xdotool windowactivate 90177621
+
+
+Available commands:
+  getactivewindow
+  getwindowfocus
+  getwindowname
+  getwindowpid
+  getwindowgeometry
+  getdisplaygeometry
+  search
+  selectwindow
+  help
+  version
+  behave
+  behave_screen_edge
+  click
+  getmouselocation
+  key
+  keydown
+  keyup
+  mousedown
+  mousemove
+  mousemove_relative
+  mouseup
+  set_window
+  type
+  windowactivate
+  windowfocus
+  windowkill
+  windowmap
+  windowminimize
+  windowmove
+  windowraise
+  windowreparent
+  windowsize
+  windowunmap
+  set_num_desktops
+  get_num_desktops
+  set_desktop
+  get_desktop
+  set_desktop_for_window
+  get_desktop_for_window
+  get_desktop_viewport
+  set_desktop_viewport
+  exec
+  sleep

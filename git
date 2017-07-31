@@ -1,0 +1,109 @@
+# To set your identify:
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+
+# To set your editor:
+git config --global core.editor emacs
+
+# To enable color:
+git config --global color.ui true
+
+# To stage all changes for commit:
+git add --all
+
+# To commit staged changes
+git commit -m "Your commit message"
+
+# To edit previous commit message
+git commit --amend
+
+# To removed staged and working directory changes
+git reset --hard
+
+# To remove untracked files
+git clean -f -d
+
+# To remove untracked and ignored files
+git clean -f -d -x
+
+# To push to the tracked master branch:
+git push origin master
+
+# To push to a specified repository:
+git push git@github.com:username/project.git
+
+# To delete the branch "branch_name"
+git branch -D branch_name
+
+# To see who commited which line in a file
+git blame filename
+
+# To sync a fork with the master repo:
+git remote add upstream git@github.com:name/repo.git    # Set a new repo
+git remote -v                                           # Confirm new remote repo
+git fetch upstream                                      # Get branches
+git branch -va                                          # List local - remote branches
+git checkout master                                     # Checkout local master branch
+git checkout -b new_branch                              # Create and checkout a new branch
+git merge upstream/master                               # Merge remote into local repo
+git show 83fb499                                        # Show what a commit did.
+git show 83fb499:path/fo/file.ext                       # Shows the file as it appeared at 83fb499.
+git diff branch_1 branch_2                              # Check difference between branches
+git log                                                 # Show all the commits
+git status                                              # Show the changes from last commit
+
+# git export
+git archive master | tar -x -C /somewhere/else
+
+# git tar.gz
+git archive master | bzip2 >source-tree.tar.bz2
+
+# git ZIP archive:
+git archive --format zip --output /full/path/to/zipfile.zip master 
+
+# find a commit in which branch
+git name-rev 97374dab58cffa8a7d81881377b386dc42c0dcba
+
+# show all refs, gerrit use refs/change/xxx save change
+git show-ref
+
+# delete refs
+git update-ref -d refs/notes/origin/commits
+
+# delete all branch and tag,expect master in remote
+git ls-remote caf | awk '{ print $2 }' | sed '/^HEAD$/d' | sed '/master$/d' | xargs -n 20 git push caf --delete --
+
+# delete all branch tag or other refs, expect master in local
+git show-ref | awk '{ print $2 }' | sed '/^HEAD$/d' | sed '/master$/d' | xargs -n 1 git update-ref -d --
+
+# fetch all gerrit changes in local, so that we can diff easy,and cherry-pick easy
+git ls-remote origin | grep /changes/ | awk '{print $2;}' | while read REF
+do
+	git fetch "${REMOTE}" "${REF}"
+	git branch ${echo "${REF}" | sed 's#refs/changes/../#change/#'} FETCH_HEAD
+done
+
+## how to find a file's sha1
+git rev-parse HEAD:filename
+
+## how to show a file's content by file sha1
+git cat-file -p sha1
+
+## show file tree
+git cat-file -p HEAD^{tree}
+
+## git hash file
+$ echo 'test content' | git hash-object -w --stdin
+d670460b4b4aece5915caf5c68d12f560a9fe3e4
+
+# ls-remote
+“Pull Request Refs” which we use to look at the raw references on the server.
+
+# ls-files
+“Manual File Re-merging”, “Rerere” and “The Index” to take a more raw look at what your staging area looks like.
+
+# rev-parse
+“Branch References” to take just about any string and turn it into an object SHA-1.
+
+# write git script
+. "$(git --exec-path)/git-sh-setup"

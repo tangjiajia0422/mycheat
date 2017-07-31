@@ -1,0 +1,14 @@
+# Printout date in format suitable for affixing to file names
+date +"%Y%m%d_%H%M%S"
+
+# change timezone
+date -R
+sudo tzselect
+sudo cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+sudo ntpdate time.windows.com
+
+# show date in microsecond
+date +%s.%N
+
+# make a dir with current date
+mkdir $(date +"%Y%m%d")
