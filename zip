@@ -1,5 +1,15 @@
 # Create .zip files
-zip -r {output.zip} {folder}
+zip -r {output.zip} {folder1} {folder2} {filename1} {filename2}
+
+# Delete file from .zip
+zip -d {zipfile.zip} {filename}
+
+# Add newfile to .zip
+zip -m {zipfile.zip} {filename}
 
 # Extract .zip files to directory
 unzip {input.zip} -d {folder}
+
+# List file infomation 
+unzip -l {zipfile.zip}
+unzip -Z {zipfile.zip}
