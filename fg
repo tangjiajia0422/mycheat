@@ -1,0 +1,5 @@
+fg 命令可以用来恢复被ctrl+z的进程的。
+ctrl-c 会发出SIGINT信号，默认是结束(terminate)进程;
+ctrl-z 会发出SIGTSTP信号，默认行为是暂停(pause)进程;
+paused的进程是不会被调度，直到其收到一个SIGCONT信号。SIGTSTP信号和SIGSTOP是相同的，除了：后者不能被ignored or handled。
+SIGINT是用来优雅的关闭进程。

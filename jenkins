@@ -8,3 +8,32 @@ curl -X POST ${JENKINS_URL}/job/${JOB_NAME}/build \
      --user ${USER}:${TOKEN} \
      --data token=${TOKEN} \
      --data-urlencode json='{"parameter": ['"${JOB_PARAMETER}"']}'
+
+# Jenkins cli jar包的操作
+https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI
+一个jenkins只有一个公共的jenkins-cli.jar
+http://192.168.65.26:8080/jnlpJars/jenkins-cli.jar
+java -jar jenkins-cli.jar -s http://192.168.65.26:8080/ help
+
+#修改jenkins 某个任务的description
+http://192.168.67.146:8080/me/configure
+把帐号的公钥粘贴到网页的 SSH Public Keys 内容中
+java -jar jenkins-cli.jar -s http://192.168.64.146:8080/ set-build-description ${JOB_NAME} ${BUILD_NUMBER} DESCRIPTIONS
+
+# 从jenkisn的任务的log中获得信息
+curl -k  https://yangdong0327:d3371f279a49e30690718562782c83f5@192.168.65.12:8080/job/it_change_wifi_pswd/lastSuccessfulBuild/console | grep "New password:" | awk '{print $NF}'
+
+# jenkins 内建环境变量
+BUILD_NUMBER = "The current build number, such as '153'"
+BUILD_ID = "The current build id, like '2005-08-22_23-59-59'"
+JOB_NAME = "Name of the project of this build, like 'foo' or 'foo/bar'"
+BUILD_TAG
+EXECUTOR_NUMBER
+NODE_NAME = "Name of the slave if the build is on a slave"
+NODE_LABELS = "Whitespace-separated list of labels that the node is assigned"
+WORKSPACE
+JENKINS_HOME = "absolute path of the directory of master node to store data"
+JENKINS_URL = "http://server:port/jenkins/"
+BUILD_URL = "http://server:port/jenkins/job/foo/15/"
+JOB_URL = "http://server:port/jenkins/job/foo/"
+

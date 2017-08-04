@@ -1,1 +1,0 @@
-ack --help-types
