@@ -18,6 +18,12 @@ ${SSH_GERRIT_COMMAND} review  --verified +1  --code-review +2 --submit ${change}
 # http
 curl --digest  -k -u 'username':'gerrit http password' 'https://gerrit.url/a/changes/?q=15&o=CURRENT_REVISION'
 
+# 查询一笔提交，删除了多少行代码
+ssh -p 29418 username@review.site.com gerrit query gerritid --current-patch-set --files | grep sizeDeletions
+
+# 查询一笔提交，增加了多少行代码
+ssh -p 29418 username@review.site.com gerrit query gerritid --current-patch-set --files | grep sizeInsertions
+
 # gerrit 自定义分支命名
 refs/notes/review
 refs/meta/config

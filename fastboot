@@ -25,3 +25,86 @@ fastboot flash persist persist.img
 fastboot reboot
 
 pause
+
+
+#echo "start flash GPT"
+#fastboot flash partition:0 gpt_both0.bin
+
+echo "start flash xbl"
+fastboot flash xbl xbl.elf
+fastboot flash xblbak xbl.elf
+
+echo "start flash tz"
+fastboot flash tz tz.mbn
+fastboot flash tzbak tz.mbn
+
+echo "start flash rpm"
+fastboot flash rpm rpm.mbn
+fastboot flash rpmbak rpm.mbn
+
+echo "start flash hyp"
+fastboot flash hyp hyp.mbn
+fastboot flash hypbak hyp.mbn
+
+echo "start flash pmic"
+fastboot flash pmic pmic.elf
+fastboot flash pmicbak pmic.elf
+
+echo "start flash aboot"
+fastboot flash aboot emmc_appsboot.mbn
+fastboot flash abootbak emmc_appsboot.mbn
+
+echo "start flash boot"
+fastboot flash boot boot.img
+
+echo "start flash system"
+fastboot -S 256M flash system system.img
+
+echo "start flash recovery"
+fastboot flash recovery recovery.img
+
+echo "start flash keymaster"
+fastboot flash keymaster keymaster.mbn
+fastboot flash keymasterbak keymaster.mbn
+
+echo "start flash cmnlib"
+fastboot flash cmnlib cmnlib.mbn
+fastboot flash cmnlibbak cmnlib.mbn
+fastboot flash cmnlib64 cmnlib64.mbn
+fastboot flash cmnlib64bak cmnlib64.mbn
+
+echo "start flash modem"
+fastboot flash modem NON-HLOS.bin
+
+echo "start flash modembak"
+fastboot flash modembak NON-HLOS.bin
+
+echo "start flash dsp"
+fastboot flash dsp adspso.bin
+
+echo "start flash dspbak"
+fastboot flash dspbak adspso.bin
+
+echo "start flash mdtp"
+fastboot flash mdtp mdtp.img
+
+echo "start flash mdtpbak"
+fastboot flash mdtp mdtpbak.img
+
+echo "start flash splash"
+fastboot flash splash splash.img
+
+echo "start flash sec"
+fastboot flash sec sec.dat
+
+echo "start flash bluetooth"
+fastboot flash bluetooth BTFM.bin
+
+echo "start flash bluetoothbak"
+fastboot flash bluetoothbak BTFM.bin
+
+echo "start flash devcfg"
+fastboot flash devcfg devcfg.mbn
+
+echo "start flash devcfgbak"
+fastboot flash devcfgbak devcfg.mbn

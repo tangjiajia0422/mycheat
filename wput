@@ -1,0 +1,10 @@
+# A tools such as wget for upload file or dir to remote server
+
+# base usage
+wput [option] [file] [URL]
+URL : ftp://[username[:password]@]hostname[:port][/[path/]]
+
+# upload dir
+wput -v dir_name ftp://ftpuser:ftppwd@ftphost/
+wput ${BUILD_VERSION_NUMBER} ftp://${main_ftp_user}:${main_ftp_pwd}@${main_ftp_host}${main_ftp_root_path}/
+

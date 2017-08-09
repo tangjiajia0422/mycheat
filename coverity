@@ -1,0 +1,25 @@
+# Coverity扫描时，常用命令
+
+coverity扫描，服务器上扫描环境是配置好的，使用时只需要下载了代码之后，依次执行如下命令就可以了。
+扫描的最终结果，上传到中央服务器。
+
+# cov-build:编译
+cov-build --delete-stale-tus --dir ${COV_IMDIR} --config ${COVCONFIG} ${BUILD_COM}
+
+# cov-analyze:分析
+cov-analyze --dir ${COV_IMDIR} --all --trial --fb-max-mem=2048 --strip-path=${CODE_WORKSPACE}
+
+# cov-commit-defects:上传
+cov-commit-defects --dir ${COV_IMDIR}  --host ${COV_HOST} --port ${COV_PORT} --stream ${COV_STREAM} --auth-key-file ${COV_AUTH_KEY_FILE} --strip-path=${CODE_WORKSPACE}
+
+
+## 参数说明
+
+    1、COV_IMDIR ：coverity扫描时，编译产物的存放路径；
+    2、COVCONFIG ：扫描时的配置文件，定义了各种规则，使用的是中央服务器统一的配置文件；/home/coverity/cov-config/config.xml
+    3、BUILD_COM : 编译命令，可以使make也可以是编译脚本，后面可以加参数；
+    4、CODE_WORKSPACE：代码路径，用于在显示时删除长路径，比如可以截掉文件绝对路径中的${WORKSPACE}
+    5、COV_HOST  : coverity中央服务器的IP，固定的，192.168.8.44
+    6、COV_PORT  : coverity中央服务器的coverity端口，固定的，8888
+    7、COV_STREAM: 扫描结果上传的位置，需要预先在中央服务器上创建
+    8、COV_AUTH_KEY_FILE ：coverity中央服务器的admin认证文件，固定的，/home/coverity/cov-config/cov-auth-key

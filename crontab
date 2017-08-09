@@ -1,6 +1,12 @@
 # set a shell
 SHELL=/bin/bash
 
+#edit user's crontab
+crontab -e
+
+#list user's crontab
+crontab -l
+
 # crontab format
 * * * * *  command_to_execute
 - - - - -
